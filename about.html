@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>怪獸培育中心</title>
+
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: "Noto Sans TC", sans-serif;
+      background: url('bg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* 背景加深 */
+      z-index: 0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: black;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+    }
+
+    #dropdownMenu {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: #111;
+      border: 1px solid #444;
+      border-radius: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 0;
+      width: 150px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      display: flex;
+    }
+
+    #dropdownMenu.show {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    #dropdownMenu a {
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #dropdownMenu a:hover {
+      background-color: #333;
+    }
+
+    .content {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .about-section {
+      margin-top: 50px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .about-section h2 {
+      color: #57dfae;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      line-height: 1.8;
+      font-size: 18px;
+      color: #f0f0f0;
+    }
+
+    .social-icons {
+      margin-top: 30px;
+    }
+
+    .social-icons a img {
+      width: 50px;
+      margin: 0 10px;
+      transition: transform 0.3s;
+    }
+
+    .social-icons a img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      font-size: 14px;
+      color: #ffffff;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bg-overlay"></div>
+
+<header>
+  <a href="index.html">
+    <img src="logo.png" alt="Logo" class="logo">
+  </a>
+  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <div id="dropdownMenu">
+    <a href="about.html">About Us</a>
+    <a href="index.html">怪獸</a>
+  </div>
+</header>
+
+<div class="content">
+  <section class="about-section" id="about">
+    <h2>About us</h2>
+    <p>
+      歡迎來到怪獸培育中心！在這裡，廢棄物不再只是垃圾。<br>
+      透過混合實境技術讓你化身成培育家餵養怪獸。<br>
+      但小心——牠們挑嘴得很，只吃正確分類的回收物！<br>
+      每次選擇，都在考驗你對回收的認知，<br>
+      你的怪獸會變得如何？一切都取決於你的分類判斷！
+    </p>
+
+    <div class="social-icons">
+      <a href="https://www.instagram.com/oopstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+        <img src="instagram.png" alt="Instagram">
+      </a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdhMhx4qcEwCsjb-p_GmIk8bddknG0bksMxuXlXjV8dwQVacw/viewform">
+        <img src="google.png" alt="Google Form">
+      </a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>©2025 Opps Studio. All rights reserved. No part of this work may be reproduced or used without permission.</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  var menu = document.getElementById('dropdownMenu');
+  menu.classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
