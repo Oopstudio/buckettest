@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moldy-kun 腐腐君</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #renderCanvas {
+      width: 100%;
+      height: 400px;
+      display: block;
+      background: #ffffff;
+    }
+    #renderCanvas:focus {
+  outline: none;
+}
+
+    .model-container {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="logo.png" alt="Logo" class="logo">
+    </a>
+    <div class="menu-icon">&#9776;</div>
+  </header>
+
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="about.html">About Us</a>
+    <a href="index.html">怪獸</a>
+  </div>
+
+  <main>
+    <!-- ✅ 替代原本圖片的模型展示區 -->
+    <div class="model-container">
+      <canvas id="renderCanvas"></canvas>
+    </div>
+
+    <h1>Moldy-kun</h1>
+    <h2>腐腐君</h2>
+
+    <div class="categories">
+      <button><img src="compost.png" alt="" class="icon"> 廚餘類</button>
+      <button><img src="compost.png" alt="" class="icon"> 廚餘類</button>
+    </div>
+
+    <nav class="tabs">
+      <span class="tab active" data-tab="about">關於</span>
+      <span class="tab" data-tab="skill">技能</span>
+      <span class="tab" data-tab="knowledge">知識</span>
+    </nav>
+
+    <section class="content">
+      <div id="about" class="tab-content active">
+        <p>「我是腐腐君，最愛搞混回收桶的臭臭國王！！」</p>
+        <p>腐腐君是一隻由剩菜殘飯、果皮骨頭組成的怪獸，<br>
+        別看牠外表軟爛可愛，牠可是回收系統的大敵。<br>
+        只要一點點廚餘混進紙類，就會讓整批紙張無法再利用，污染整條回收線！</p>
+      </div>
+
+      <div id="skill" class="tab-content">
+        <div class="skill-button">
+          <span>💀 禁骨結界</span>
+        </div>
+        <p>茶葉渣、骨頭不能回收喔！<br>
+        這類是「不可回收廚餘」，只能焚化處理。<br>
+        有些廚餘會變成豬的食物！<br>
+        但必須是乾淨、無毒的食材殘渣，像是飯菜、蔬果皮。</p>
+      </div>
+
+      <div id="knowledge" class="tab-content">
+        <div class="video-wrapper">
+          <video src="trash.mp4" autoplay muted loop playsinline></video>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+
+  <!-- ✅ Babylon.js & glTF loader -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.min.js"></script>
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true);
+    engine.displayLoadingUI = function () {};
+engine.hideLoadingUI = function () {};
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+      const fixedBeta = Math.PI / 2.2; // 可微調成你喜歡的角度
+
+const camera = new BABYLON.ArcRotateCamera(
+  "camera",
+  Math.PI / 350,      // alpha：繞 Y 軸角度，允許旋轉
+  fixedBeta,        // beta：繞 X 軸角度，固定住
+  350,
+  new BABYLON.Vector3(0, 100, 0),
+
+  scene
+);
+
+camera.lowerBetaLimit = fixedBeta;
+camera.upperBetaLimit = fixedBeta;
+
+      camera.attachControl(canvas, true);
+      camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius; // ✅ 鎖定縮放距離
+  
+      const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+  
+      BABYLON.SceneLoader.Append("./model/", "bucket3final.glb", scene, function (scene) {
+        const model = scene.meshes[0];
+  model.scaling = new BABYLON.Vector3(50, 50, 50); // ✅ 調整大小（這裡是縮小成 0.5 倍）
+  model.rotate(BABYLON.Axis.Y, Math.PI / -20, BABYLON.Space.WORLD);
+  console.log("模型載入成功！");
+});
+
+  
+      return scene;
+    };
+  
+    const scene = createScene();
+  
+    engine.runRenderLoop(function () {
+      scene.render();
+    });
+  
+    window.addEventListener("resize", function () {
+      engine.resize();
+    });
+  </script>
+  
+</body>
+</html>
